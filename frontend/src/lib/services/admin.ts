@@ -109,4 +109,14 @@ export const adminApi = {
 
   updateOrderStatus: (orderNumber: string, data: { status: string; payment_status?: string }) =>
     api.put(`/v1/admin/orders/${orderNumber}/status`, data),
+
+  // POS Registers
+  getPosRegisters: (params?: Record<string, string | number>) =>
+    api.get<ApiResponse<{ registers: PaginatedResponse<any> }>>('/v1/admin/pos-registers', { params }),
+
+  openPosRegister: (id: number) =>
+    api.post(`/v1/admin/pos-registers/${id}/open`),
+
+  closePosRegister: (id: number) =>
+    api.post(`/v1/admin/pos-registers/${id}/close`),
 };

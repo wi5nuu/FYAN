@@ -38,6 +38,9 @@ export const cmsApi = {
   publishPage: (id: number) =>
     api.post(`/v1/cms/pages/${id}/publish`),
 
+  unpublishPage: (id: number) =>
+    api.post(`/v1/cms/pages/${id}/unpublish`),
+
   deletePage: (id: number) =>
     api.delete(`/v1/cms/pages/${id}`),
 };

@@ -153,6 +153,18 @@ export interface PosTransaction {
   items?: Array<{ id: number; product_id: number; quantity: number; price: number; total: number; product?: Product }>;
 }
 
+export interface PosRegister {
+  id: number;
+  name: string;
+  location?: string;
+  is_active: boolean;
+  opening_balance: number;
+  closing_balance?: number;
+  opened_at?: string;
+  closed_at?: string;
+  created_at: string;
+}
+
 export interface Invoice {
   id: number;
   invoice_number: string;
@@ -192,12 +204,13 @@ export interface Post {
   status: string;
   category_id?: number;
   author_id?: number;
-  views?: number;
+  views_count?: number;
+  is_featured?: boolean;
   published_at?: string;
   created_at: string;
   author?: User;
   category?: Category;
-  tags?: Array<{ id: number; name: string; slug: string }>;
+  tags?: Tag[];
 }
 
 export interface Page {
@@ -208,8 +221,20 @@ export interface Page {
   status: string;
   meta_title?: string;
   meta_description?: string;
+  meta_keywords?: string;
+  template?: string;
   published_at?: string;
   created_at: string;
+  category_id?: number;
+  author_id?: number;
+  sort_order?: number;
+  is_homepage?: boolean;
+}
+
+export interface Tag {
+  id: number;
+  name: string;
+  slug: string;
 }
 
 export interface DashboardStats {

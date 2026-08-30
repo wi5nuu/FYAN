@@ -32,6 +32,7 @@ out/
 # Testing
 coverage/
 .nyc_output/
+tsconfig.tsbuildinfo
 
 # Misc
 *.pem
