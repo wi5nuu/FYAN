@@ -17,7 +17,7 @@ import toast from 'react-hot-toast';
 export default function CmsPostsPage() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [tags, setTags] = useState<Tag[]>([]);
+  const [tags, setTags] = useState<{ name: string; slug: string }[]>([]);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [loading, setLoading] = useState(true);
@@ -31,7 +31,7 @@ export default function CmsPostsPage() {
       const params: Record<string, string | number> = { per_page: 100 };
       if (statusFilter !== 'all') params.status = statusFilter;
       const response = await cmsApi.getPosts(params);
-      const data = response.data.data.posts?.data || response.data.data.data || [];
+      const data = response.data.data.posts?.data || [];
       setPosts(data);
     } catch (error: unknown) {
       const message = (error as { response?: { data?: { message?: string } } })?.response?.data?.message || 'Gagal memuat artikel';
@@ -47,7 +47,7 @@ export default function CmsPostsPage() {
         adminApi.getCategories(),
         cmsApi.getPosts({ per_page: 500 }),
       ]);
-      setCategories(catRes.data.data.categories?.data || catRes.data.data.data || []);
+      setCategories(catRes.data.data.categories?.data || []);
       // Extract unique tags from posts
       const allTags = new Set<string>();
       (tagRes.data.data.posts?.data || []).forEach((post: Post) => {
