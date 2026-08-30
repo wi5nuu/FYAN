@@ -44,7 +44,7 @@ export default function DashboardProductsPage() {
         adminApi.getBrands(),
         adminApi.getSuppliers(),
       ]);
-      setCategories(catRes.data.data.data || []);
+      setCategories(catRes.data.data.categories?.data || []);
       setBrands(brandRes.data.data.data || []);
       setSuppliers(supRes.data.data.data || []);
     } catch (error) {
