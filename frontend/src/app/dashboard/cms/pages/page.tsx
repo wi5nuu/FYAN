@@ -27,7 +27,7 @@ export default function CmsPagesPage() {
     setLoading(true);
     try {
       const response = await cmsApi.getPages({ per_page: 100 });
-      const data = response.data.data.pages?.data || response.data.data.data || [];
+      const data = response.data.data.pages?.data || [];
       setPages(data);
     } catch (error: unknown) {
       const message = (error as { response?: { data?: { message?: string } } })?.response?.data?.message || 'Gagal memuat halaman';
@@ -40,7 +40,7 @@ export default function CmsPagesPage() {
   const fetchCategories = async () => {
     try {
       const response = await adminApi.getCategories();
-      setCategories(response.data.data.categories?.data || response.data.data.data || []);
+      setCategories(response.data.data.categories?.data || []);
     } catch (error) {
       console.error('Failed to fetch categories', error);
     }
