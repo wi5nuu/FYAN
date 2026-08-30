@@ -19,6 +19,7 @@ use App\Http\Controllers\Api\V1\Admin\BrandController;
 use App\Http\Controllers\Api\V1\Admin\CustomerController;
 use App\Http\Controllers\Api\V1\Admin\SupplierController;
 use App\Http\Controllers\Api\V1\Admin\OrderManagementController;
+use App\Http\Controllers\Api\V1\Admin\PosRegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -192,6 +193,12 @@ Route::prefix('v1')->middleware(['auth:sanctum', 'sanitize'])->group(function ()
         Route::get('/suppliers/{id}', [SupplierController::class, 'show']);
         Route::put('/suppliers/{id}', [SupplierController::class, 'update']);
         Route::delete('/suppliers/{id}', [SupplierController::class, 'destroy']);
+
+        // POS Register Management
+        Route::get('/pos-registers', [PosRegisterController::class, 'index']);
+        Route::get('/pos-registers/{id}', [PosRegisterController::class, 'show']);
+        Route::post('/pos-registers/{id}/open', [PosRegisterController::class, 'open']);
+        Route::post('/pos-registers/{id}/close', [PosRegisterController::class, 'close']);
 
         // Review Management
         Route::post('/reviews/{reviewId}/approve', [ReviewController::class, 'approve']);
