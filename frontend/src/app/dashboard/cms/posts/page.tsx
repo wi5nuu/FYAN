@@ -14,11 +14,6 @@ import { PostForm } from '@/components/cms/PostForm';
 import type { Post, Category } from '@/types';
 import toast from 'react-hot-toast';
 
-interface Tag {
-  name: string;
-  slug: string;
-}
-
 export default function CmsPostsPage() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -52,11 +47,11 @@ export default function CmsPostsPage() {
         adminApi.getCategories(),
         cmsApi.getPosts({ per_page: 500 }),
       ]);
-      setCategories(catRes.data.data.categories || catRes.data.data.data || []);
+      setCategories(catRes.data.data.categories?.data || catRes.data.data.data || []);
       // Extract unique tags from posts
       const allTags = new Set<string>();
       (tagRes.data.data.posts?.data || []).forEach((post: Post) => {
-        post.tags?.forEach((tag: Tag) => allTags.add(tag.name));
+        post.tags?.forEach((tag: string) => allTags.add(tag));
       });
       setTags(Array.from(allTags).map(name => ({ name, slug: name.toLowerCase().replace(/\s+/g, '-') })));
     } catch (error) {
@@ -72,7 +67,7 @@ export default function CmsPostsPage() {
   const filtered = posts.filter((p) =>
     p.title.toLowerCase().includes(search.toLowerCase()) ||
     p.slug.toLowerCase().includes(search.toLowerCase()) ||
-    p.tags?.some((tag: Tag) => tag.name.toLowerCase().includes(search.toLowerCase()))
+    p.tags?.some((tag: string) => tag.toLowerCase().includes(search.toLowerCase()))
   );
 
   const handleCreate = () => {
@@ -184,9 +179,9 @@ export default function CmsPostsPage() {
                     Kategori: {post.category?.name || '—'} | Views: {post.views_count || 0}
                   </p>
                   <div className="flex flex-wrap gap-1 mt-1">
-                    {post.tags?.map((tag: Tag) => (
-                      <span key={tag.name} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                        {tag.name}
+                    {post.tags?.map((tag: string) => (
+                      <span key={tag} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                        {tag}
                       </span>
                     ))}
                   </div>
