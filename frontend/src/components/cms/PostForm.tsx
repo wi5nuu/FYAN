@@ -43,7 +43,7 @@ interface PostFormProps {
   onSubmit: (data: PostFormData) => Promise<void>;
   categories: Category[];
   tags: string[];
-  initialData?: { id: number; title: string; slug: string; content: string; excerpt?: string; featured_image?: string; category_id?: number; tags?: Tag[]; meta_title?: string; meta_description?: string; meta_keywords?: string; is_featured?: boolean; status?: string } | null;
+  initialData?: { id: number; title: string; slug: string; content: string; excerpt?: string; featured_image?: string; category_id?: number; tags?: string[]; meta_title?: string; meta_description?: string; meta_keywords?: string; is_featured?: boolean; status?: string } | null;
   isLoading?: boolean;
 }
 
@@ -100,7 +100,7 @@ export function PostForm({
         excerpt: initialData.excerpt || '',
         featured_image: initialData.featured_image || '',
         category_id: initialData.category_id,
-        tags: initialData.tags?.map((t: Tag) => t.name) || [],
+        tags: initialData.tags || [],
         meta_title: initialData.meta_title || '',
         meta_description: initialData.meta_description || '',
         meta_keywords: initialData.meta_keywords || '',
