@@ -52,5 +52,8 @@ storage/logs/*.log
 *.sqlite
 *.sqlite3
 
+# Backup folders
+backend_backup/
+
 # Docker
 docker-compose.override.yml
