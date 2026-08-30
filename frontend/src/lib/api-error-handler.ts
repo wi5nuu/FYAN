@@ -63,8 +63,8 @@ export function extractValidationErrors(error: unknown): Record<string, string> 
     const errors = error.response?.data?.errors;
     if (errors) {
       const extracted: Record<string, string> = {};
-      Object.entries(errors).forEach(([field, messages]) => {
-        extracted[field] = messages[0];
+      Object.entries(errors).forEach(([field, value]) => {
+        extracted[field] = Array.isArray(value) ? String(value[0]) : String(value);
       });
       return extracted;
     }
