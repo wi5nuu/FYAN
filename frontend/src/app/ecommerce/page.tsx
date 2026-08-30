@@ -108,7 +108,7 @@ export default function EcommerceCatalogPage() {
 
       {search && pagination && (
         <p className="mb-4 text-sm text-gray-500">
-          Menampilkan hasil pencarian &quot;{search}&quot; — {pagination.total} produk ditemukan
+          Menampilkan hasil pencarian "{search}" — {pagination.total} produk ditemukan
         </p>
       )}
 

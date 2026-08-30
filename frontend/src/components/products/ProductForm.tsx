@@ -18,20 +18,40 @@ const productSchema = z.object({
   price: z.coerce.number().min(0, 'Harga minimal 0'),
   cost_price: z.coerce.number().min(0).optional(),
   discount_price: z.coerce.number().min(0).optional(),
-  stock_quantity: z.coerce.number().int().min(0).default(0),
-  min_stock: z.coerce.number().int().min(0).default(5),
+  stock_quantity: z.coerce.number().int().min(0).optional(),
+  min_stock: z.coerce.number().int().min(0).optional(),
   category_id: z.coerce.number().min(1, 'Kategori wajib dipilih'),
   brand_id: z.coerce.number().optional(),
   supplier_id: z.coerce.number().optional(),
-  type: z.enum(['ecommerce', 'pos']),
-  is_active: z.boolean().default(true),
-  is_featured: z.boolean().default(false),
-  tax_rate: z.coerce.number().min(0).max(100).default(11),
+  type: z.enum(['ecommerce', 'pos']).optional(),
+  is_active: z.boolean().optional(),
+  is_featured: z.boolean().optional(),
+  tax_rate: z.coerce.number().min(0).max(100).optional(),
   meta_title: z.string().optional(),
   meta_description: z.string().optional(),
-});
+}).transform((data) => ({
+  name: data.name,
+  sku: data.sku,
+  barcode: data.barcode ?? '',
+  description: data.description ?? '',
+  short_description: data.short_description ?? '',
+  price: data.price ?? 0,
+  cost_price: data.cost_price ?? 0,
+  discount_price: data.discount_price ?? 0,
+  stock_quantity: data.stock_quantity ?? 0,
+  min_stock: data.min_stock ?? 5,
+  category_id: data.category_id!,
+  brand_id: data.brand_id,
+  supplier_id: data.supplier_id,
+  type: (data.type as 'ecommerce' | 'pos') ?? 'ecommerce',
+  is_active: data.is_active ?? true,
+  is_featured: data.is_featured ?? false,
+  tax_rate: data.tax_rate ?? 11,
+  meta_title: data.meta_title ?? '',
+  meta_description: data.meta_description ?? '',
+}));
 
-export type ProductFormData = z.infer<typeof productSchema>;
+export type ProductFormData = z.output<typeof productSchema>;
 
 interface ProductFormProps {
   isOpen: boolean;
@@ -63,7 +83,7 @@ export function ProductForm({
     setValue,
     formState: { errors },
   } = useForm<ProductFormData>({
-    resolver: zodResolver(productSchema),
+    resolver: zodResolver(productSchema) as any,
     defaultValues: {
       name: '',
       sku: '',
@@ -103,7 +123,7 @@ export function ProductForm({
         category_id: initialData.category_id,
         brand_id: initialData.brand_id,
         supplier_id: initialData.supplier_id,
-        type: initialData.type || 'ecommerce',
+        type: (initialData.type as 'ecommerce' | 'pos') || 'ecommerce',
         is_active: initialData.is_active ?? true,
         is_featured: initialData.is_featured ?? false,
         tax_rate: 11,

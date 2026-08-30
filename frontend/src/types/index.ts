@@ -28,6 +28,10 @@ export interface Category {
   type?: string;
   description?: string;
   is_active?: boolean;
+  sort_order?: number;
+  parent_id?: number;
+  meta_title?: string;
+  meta_description?: string;
 }
 
 export interface Brand {
@@ -113,6 +117,8 @@ export interface Customer {
   address?: string;
   city?: string;
   province?: string;
+  postal_code?: string;
+  is_active?: boolean;
 }
 
 export interface Supplier {
@@ -124,6 +130,8 @@ export interface Supplier {
   address?: string;
   city?: string;
   province?: string;
+  postal_code?: string;
+  notes?: string;
   is_active?: boolean;
 }
 

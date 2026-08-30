@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, forwardRef, useImperativeHandle } from 'react';
+import { ReactNode, forwardRef, useImperativeHandle, RefObject } from 'react';
 import { X } from 'lucide-react';
 
 interface ModalProps {
@@ -11,7 +11,11 @@ interface ModalProps {
   size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
 }
 
-export const Modal = forwardRef<HTMLDivElement, ModalProps>(
+interface ModalRef {
+  close: () => void;
+}
+
+export const Modal = forwardRef<ModalRef, ModalProps>(
   ({ isOpen, onClose, title, children, size = 'md' }, ref) => {
     useImperativeHandle(ref, () => ({
       close: onClose,
@@ -36,7 +40,6 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
             aria-hidden="true"
           />
           <div
-            ref={ref}
             className={`relative w-full ${sizeClasses[size]} bg-white rounded-2xl shadow-xl transform transition-all`}
           >
             <div className="flex items-center justify-between border-b px-6 py-4">

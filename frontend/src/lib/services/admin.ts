@@ -50,34 +50,55 @@ export const adminApi = {
 
   // Categories
   getCategories: () =>
-    api.get<ApiResponse<{ categories: Category[] | PaginatedResponse<Category> }>>('/v1/admin/categories'),
+    api.get<ApiResponse<PaginatedResponse<Category>>>('/v1/admin/categories'),
 
   createCategory: (data: Partial<Category>) =>
-    api.post('/v1/admin/categories', data),
+    api.post<ApiResponse<{ category: Category }>>('/v1/admin/categories', data),
 
   updateCategory: (id: number, data: Partial<Category>) =>
-    api.put(`/v1/admin/categories/${id}`, data),
+    api.put<ApiResponse<{ category: Category }>>(`/v1/admin/categories/${id}`, data),
 
   deleteCategory: (id: number) =>
     api.delete(`/v1/admin/categories/${id}`),
 
   // Brands
   getBrands: () =>
-    api.get<ApiResponse<{ brands: Brand[] | PaginatedResponse<Brand> }>>('/v1/admin/brands'),
+    api.get<ApiResponse<PaginatedResponse<Brand>>>('/v1/admin/brands'),
 
   createBrand: (data: Partial<Brand>) =>
-    api.post('/v1/admin/brands', data),
+    api.post<ApiResponse<{ brand: Brand }>>('/v1/admin/brands', data),
+
+  updateBrand: (id: number, data: Partial<Brand>) =>
+    api.put<ApiResponse<{ brand: Brand }>>(`/v1/admin/brands/${id}`, data),
+
+  deleteBrand: (id: number) =>
+    api.delete(`/v1/admin/brands/${id}`),
 
   // Customers
   getCustomers: (params?: Record<string, string | number>) =>
-    api.get<ApiResponse<{ customers: PaginatedResponse<Customer> }>>('/v1/admin/customers', { params }),
+    api.get<ApiResponse<PaginatedResponse<Customer>>>('/v1/admin/customers', { params }),
 
   createCustomer: (data: Partial<Customer>) =>
-    api.post('/v1/admin/customers', data),
+    api.post<ApiResponse<{ customer: Customer }>>('/v1/admin/customers', data),
+
+  updateCustomer: (id: number, data: Partial<Customer>) =>
+    api.put<ApiResponse<{ customer: Customer }>>(`/v1/admin/customers/${id}`, data),
+
+  deleteCustomer: (id: number) =>
+    api.delete(`/v1/admin/customers/${id}`),
 
   // Suppliers
   getSuppliers: () =>
-    api.get<ApiResponse<{ suppliers: PaginatedResponse<Supplier> }>>('/v1/admin/suppliers'),
+    api.get<ApiResponse<PaginatedResponse<Supplier>>>('/v1/admin/suppliers'),
+
+  createSupplier: (data: Partial<Supplier>) =>
+    api.post<ApiResponse<{ supplier: Supplier }>>('/v1/admin/suppliers', data),
+
+  updateSupplier: (id: number, data: Partial<Supplier>) =>
+    api.put<ApiResponse<{ supplier: Supplier }>>(`/v1/admin/suppliers/${id}`, data),
+
+  deleteSupplier: (id: number) =>
+    api.delete(`/v1/admin/suppliers/${id}`),
 
   // Orders
   getOrders: (params?: Record<string, string | number>) =>

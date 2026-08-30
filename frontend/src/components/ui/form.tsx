@@ -34,8 +34,8 @@ export const Input = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputE
 
 Input.displayName = 'Input';
 
-export const Select = forwardRef<HTMLSelectElement, SelectHTMLAttributes<HTMLSelectElement> & { label?: string; error?: string; options: Array<{ value: string; label: string }> }>(
-  ({ className, label, error, id, options, ...props }, ref) => (
+export const Select = forwardRef<HTMLSelectElement, SelectHTMLAttributes<HTMLSelectElement> & { label?: string; error?: string; options: Array<{ value: string; label: string }>; placeholder?: string }>(
+  ({ className, label, error, id, options, placeholder, ...props }, ref) => (
     <div className="w-full">
       {label && (
         <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-gray-700">
@@ -53,6 +53,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectHTMLAttributes<HTMLSel
         aria-invalid={error ? 'true' : 'false'}
         {...props}
       >
+        {placeholder && <option value="" disabled>{placeholder}</option>}
         {options.map(opt => (
           <option key={opt.value} value={opt.value}>
             {opt.label}
