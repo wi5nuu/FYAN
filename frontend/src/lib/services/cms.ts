@@ -23,7 +23,7 @@ export const cmsApi = {
   deletePost: (id: number) =>
     api.delete(`/v1/cms/posts/${id}`),
 
-  getPages: (params?: Record<string, string>) =>
+  getPages: (params?: Record<string, string | number>) =>
     api.get<ApiResponse<{ pages: PaginatedResponse<Page> }>>('/v1/cms/pages', { params }),
 
   getPage: (slug: string) =>
