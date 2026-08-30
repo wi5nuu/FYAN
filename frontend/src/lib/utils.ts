@@ -77,3 +77,38 @@ export function getStatusColor(status: string): string {
   };
   return colors[status] || 'bg-gray-100 text-gray-800';
 }
+
+export function formatNumber(num: number): string {
+  return new Intl.NumberFormat('id-ID').format(num);
+}
+
+export function formatPercentage(value: number, total: number): string {
+  if (total === 0) return '0%';
+  const percentage = (value / total) * 100;
+  return `${percentage.toFixed(1)}%`;
+}
+
+export function formatRelativeTime(date: string | Date): string {
+  const now = new Date();
+  const then = new Date(date);
+  const diffInSeconds = Math.floor((now.getTime() - then.getTime()) / 1000);
+
+  if (diffInSeconds < 60) return 'Baru saja';
+  if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} menit lalu`;
+  if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} jam lalu`;
+  if (diffInSeconds < 604800) return `${Math.floor(diffInSeconds / 86400)} hari lalu`;
+  return formatDateShort(date);
+}
+
+export function truncateText(text: string, maxLength: number): string {
+  if (text.length <= maxLength) return text;
+  return text.slice(0, maxLength) + '...';
+}
+
+export function generateSlug(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
