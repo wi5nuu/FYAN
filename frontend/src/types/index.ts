@@ -210,7 +210,11 @@ export interface Post {
   created_at: string;
   author?: User;
   category?: Category;
-  tags?: Tag[];
+  tags?: string[];
+  featured_image?: string;
+  meta_title?: string;
+  meta_description?: string;
+  meta_keywords?: string;
 }
 
 export interface Page {
