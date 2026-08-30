@@ -25,7 +25,7 @@ export default function DashboardCategoriesPage() {
     setLoading(true);
     try {
       const response = await adminApi.getCategories();
-      setCategories(response.data.data.data || []);
+      setCategories(response.data.data.categories?.data || []);
     } catch (error: unknown) {
       const message = (error as { response?: { data?: { message?: string } } })?.response?.data?.message || 'Gagal memuat kategori';
       toast.error(message);
