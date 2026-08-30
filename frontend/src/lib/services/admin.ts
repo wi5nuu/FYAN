@@ -50,7 +50,7 @@ export const adminApi = {
 
   // Categories
   getCategories: () =>
-    api.get<ApiResponse<PaginatedResponse<Category>>>('/v1/admin/categories'),
+    api.get<ApiResponse<{ categories: PaginatedResponse<Category> }>>('/v1/admin/categories'),
 
   createCategory: (data: Partial<Category>) =>
     api.post<ApiResponse<{ category: Category }>>('/v1/admin/categories', data),
