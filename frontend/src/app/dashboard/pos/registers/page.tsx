@@ -20,7 +20,7 @@ export default function PosRegistersPage() {
     setLoading(true);
     try {
       const response = await adminApi.getPosRegisters({ per_page: 100 });
-      setRegisters(response.data.data.registers?.data || response.data.data.data || []);
+      setRegisters(response.data.data.registers?.data || []);
     } catch (error: unknown) {
       const message = (error as { response?: { data?: { message?: string } } })?.response?.data?.message || 'Gagal memuat kasir';
       toast.error(message);
@@ -96,7 +96,7 @@ export default function PosRegistersPage() {
                     <p className="text-sm text-gray-500">Saldo Awal</p>
                     <p className="text-lg font-bold text-gray-900">{formatCurrency(register.opening_balance)}</p>
                   </div>
-                  {register.closing_balance !== null && (
+                  {register.closing_balance != null && register.closing_balance > 0 && (
                     <div className="text-left sm:text-right">
                       <p className="text-sm text-gray-500">Saldo Akhir</p>
                       <p className="text-lg font-bold text-gray-900">{formatCurrency(register.closing_balance)}</p>
